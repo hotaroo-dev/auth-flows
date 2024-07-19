@@ -7,7 +7,8 @@ export default function Container({ children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
     paddingHorizontal: 16,
-    marginTop: 40,
+    paddingTop: 40,
   },
 });
