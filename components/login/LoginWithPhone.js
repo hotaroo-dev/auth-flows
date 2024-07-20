@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { StyleSheet, View, TextInput, Button } from "react-native";
+import { useRef, useState } from "react";
+import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import Icon from "react-native-vector-icons/Octicons";
 import ContinueButton from "../common/continueButton";
+import { login } from "../../api";
 
 export default function LoginByPhone() {
   const [hidePassword, setHidePassword] = useState(true);
+  const phoneRef = useRef(null);
+  const passwordRef = useRef(null);
   const toggleShowPassword = () => {
     setHidePassword((prev) => !prev);
   };
@@ -13,14 +16,27 @@ export default function LoginByPhone() {
     <View style={styles.container}>
       <View style={{ gap: 16 }}>
         <View style={styles.inputArea}>
-          <Icon name="mail" size={16} />
-          <TextInput style={styles.inputStyle} placeholder="Email" />
+          <Text>🇰🇭 +855</Text>
+          <TextInput
+            ref={phoneRef}
+            style={{
+              ...styles.inputStyle,
+              borderLeftWidth: 1,
+              borderColor: "#e5e5e5",
+              marginLeft: 10,
+            }}
+            onChangeText={(text) => (phoneRef.current.value = text)}
+            keyboardType="numeric"
+            placeholder="XXX XXX XXX XXX"
+          />
         </View>
         <View style={styles.inputArea}>
           <Icon name="lock" size={16} />
           <TextInput
+            ref={passwordRef}
             style={styles.inputStyle}
             secureTextEntry={hidePassword}
+            onChangeText={(text) => (passwordRef.current.value = text)}
             placeholder="Password"
           />
           {hidePassword ? (
@@ -33,7 +49,15 @@ export default function LoginByPhone() {
       <View style={{ marginVertical: 16 }}>
         <Button title="Forget password" color="#7dd3fc" />
       </View>
-      <ContinueButton />
+      <ContinueButton
+        login={() =>
+          login({
+            countryCode: "855",
+            phone: phoneRef.current.value,
+            password: passwordRef.current.value,
+          })
+        }
+      />
     </View>
   );
 }

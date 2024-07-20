@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useWindowDimensions, Text, View } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import LoginByEmail from "./LoginByEmail";
-import LoginByPhone from "./LoginByPhone";
+import LoginWithEmail from "./LoginWithEmail";
+import LoginWithPhone from "./LoginWithPhone";
 
 const renderScene = SceneMap({
-  email: LoginByEmail,
-  phone: LoginByPhone,
+  email: LoginWithEmail,
+  phone: LoginWithPhone,
 });
 
 const renderTabBar = (props) => (

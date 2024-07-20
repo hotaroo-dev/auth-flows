@@ -1,8 +1,8 @@
+import { useNavigation } from "@react-navigation/core";
 import { StyleSheet, Text } from "react-native";
 import Icon from "react-native-vector-icons/Octicons";
-import { useNavigation } from "@react-navigation/core";
 
-export default function ContinueButton() {
+export default function ContinueButton({ login }) {
   const navigation = useNavigation();
   return (
     <Icon.Button
@@ -11,7 +11,12 @@ export default function ContinueButton() {
       backgroundColor="#7dd3fc"
       borderRadius={9999}
       style={styles.btn}
-      onPress={() => navigation.navigate("profile")}
+      onPress={async () => {
+        const { message } = await login();
+        if (message === "Success") {
+          navigation.navigate("profile");
+        }
+      }}
     >
       <Text style={styles.btnTitle}>Continue</Text>
     </Icon.Button>
